@@ -1,0 +1,34 @@
+services:
+  net10:
+    container_name: net10
+    build: 
+      context: .
+      dockerfile: ./SDK-NET10/Dockerfile
+    working_dir: /homeWork
+    ports:
+      - "5000:5000"
+    volumes:
+      - /home/jhoanxp/Documentos/net/proyectos:/homeWork
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      ASPNETCORE_URLS: "http://+:5000"
+    depends_on:
+      sql-server:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+    command: ["bash"]
+  sql-server:
+    container_name: sql-server-net10
+    build: 
+      context: .
+      dockerfile: ./sqlServer/Dockerfile
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlServerPrueba:/var/opt/mssql
+    stdin_open: true
+    tty: true
+volumes:
+  sqlServerPrueba:
