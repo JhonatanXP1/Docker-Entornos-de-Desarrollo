@@ -5,12 +5,16 @@ services:
       context: .
       dockerfile: ./SDK-NET10/Dockerfile
     working_dir: /homeWork
+    user: "${UID}:${GID}"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
     ports:
       - "5000:5000"
     volumes:
       - /home/jhoanxp/Documentos/net/proyectos:/homeWork
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
       ASPNETCORE_URLS: "http://+:5000"
     depends_on:

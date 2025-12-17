@@ -25,7 +25,8 @@ EXPOSE 80 443 5000 5001
 
 ENV ASPNETCORE_ENVIRONMENT=Development \
     DOTNET_USE_POLLING_FILE_WATCHER=true \
-    ASPNETCORE_URLS="http://+:80"
+    ASPNETCORE_URLS="http://+:80" \
+    HOME=/homeWork
 
 WORKDIR /homeWork
 
